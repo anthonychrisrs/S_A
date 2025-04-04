@@ -22,13 +22,14 @@ const colors = [
 ];
 
 const audioFiles = [
-    "https://archive.org/details/MozartK626Requiem3.DiesIrae",
-    "https://archive.org/details/MozartK626Requiem3.DiesIrae"
+    "audio/dies_irae.mp3", // Ensure these are valid audio files
+    "audio/tuba_mirum.mp3"
 ];
 
 function getRandomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
+
 // Set default image and message
 document.getElementById('image').src = getRandomItem(images);
 document.getElementById('message').textContent = "Click the button to reveal a message and change the scene.";
@@ -43,4 +44,5 @@ document.getElementById('messageButton').addEventListener('click', () => {
     imageElement.src = getRandomItem(images);
     bodyElement.style.backgroundColor = getRandomItem(colors);
     audioElement.src = getRandomItem(audioFiles);
+    audioElement.play(); // Ensure the audio plays
 });
