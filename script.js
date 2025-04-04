@@ -29,6 +29,9 @@ const audioFiles = [
 function getRandomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
+// Set default image and message
+document.getElementById('image').src = getRandomItem(images);
+document.getElementById('message').textContent = "Click the button to reveal a message and change the scene.";
 
 document.getElementById('messageButton').addEventListener('click', () => {
     const messageElement = document.getElementById('message');
