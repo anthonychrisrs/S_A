@@ -4,25 +4,241 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Story</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #ffd6e7, #c1e3ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .page {
+      padding: 40px;
+      text-align: center;
+      transition: opacity 0.5s ease;
+    }
+    
+    .active {
+      display: block;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    h1 {
+      font-size: 2.8rem;
+      color: #ff6b9d;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .fade-in {
+      animation: fadeIn 2s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    #startButton {
+      background: linear-gradient(to right, #ff6b9d, #ff8e53);
+      color: white;
+      border: none;
+      padding: 18px 45px;
+      font-size: 1.4rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
+      transition: all 0.3s ease;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    
+    #startButton:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(255, 107, 157, 0.6);
+    }
+    
+    #startButton:active {
+      transform: translateY(0);
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    #media-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    #story-image {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-height: 400px;
+      object-fit: cover;
+    }
+    
+    #story-text {
+      font-size: 1.4rem;
+      line-height: 1.7;
+      color: #555;
+      max-width: 600px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: rgba(255, 107, 157, 0.7);
+      animation: float 8s linear infinite;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      #startButton {
+        padding: 15px 30px;
+        font-size: 1.2rem;
+      }
+      
+      .page {
+        padding: 25px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="hearts" id="hearts-container"></div>
+  
   <div class="container">
     <!-- Starter Page -->
     <div id="starter" class="page active">
       <h1 class="fade-in">First Month? Silly us :P</h1>
-      <button id="startButton" class="hidden pulse">Touch Me</button>
+      <button id="startButton" class="pulse">Touch Me</button>
     </div>
 
     <!-- Story Page -->
     <div id="story" class="page hidden">
       <div id="media-container">
         <img id="story-image" class="hidden" src="" alt="Story Moment">
-        <div id="story-text" class="hidden"></div>
+        <div id="story-text" class="hidden">This is where your story would appear. Click the button to start the journey!</div>
       </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Create floating hearts
+    function createHearts() {
+      const container = document.getElementById('hearts-container');
+      const heartCount = 20;
+      
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤';
+        heart.classList.add('heart');
+        
+        // Random position
+        heart.style.left = Math.random() * 100 + 'vw';
+        
+        // Random size
+        const size = Math.random() * 20 + 15;
+        heart.style.fontSize = size + 'px';
+        
+        // Random animation duration
+        const duration = Math.random() * 10 + 5;
+        heart.style.animationDuration = duration + 's';
+        
+        // Random delay
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        
+        container.appendChild(heart);
+      }
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      createHearts();
+      
+      const startButton = document.getElementById('startButton');
+      const starterPage = document.getElementById('starter');
+      const storyPage = document.getElementById('story');
+      
+      startButton.addEventListener('click', function() {
+        starterPage.classList.remove('active');
+        starterPage.classList.add('hidden');
+        storyPage.classList.remove('hidden');
+        storyPage.classList.add('active');
+        
+        // Show story elements after a delay
+        setTimeout(() => {
+          document.getElementById('story-image').classList.remove('hidden');
+          document.getElementById('story-text').classList.remove('hidden');
+        }, 500);
+      });
+    });
+  </script>
 </body>
 </html>
