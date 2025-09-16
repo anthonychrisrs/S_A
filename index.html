@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dark Gothic</title>
-  <!-- Updated filename -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to the Dark Gothic World</h1>
-    <img id="image" src="images/darkHK.png" alt="Gothic Kitty">
-    <p id="message">Here!</p>
-    <button id="messageButton">Touch me!</button>
-  </div>
-  <audio id="backgroundMusic" autoplay loop></audio>
-  <script src="script.js"></script>
+    <div class="container">
+        <div id="starter" class="page active">
+            <h1>First month? silly us</h1>
+            <button id="startButton" class="hidden">Click Me</button>
+        </div>
+
+        <div id="story" class="page hidden">
+            <div id="media-container">
+                <img id="story-image" class="hidden" src="" alt="Story Image">
+                <div id="story-text" class="hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
