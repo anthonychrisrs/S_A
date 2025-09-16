@@ -1,3 +1,4 @@
+
 // Story content
 const storyContent = [
   { type: 'image', src: 'images/first_pic_togheter.jpg' },
