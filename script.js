@@ -1,48 +1,71 @@
-const messages = [
-    "Beauty isn’t about light; it’s finding your elegance in darkness 🖤",
-    "Embrace your darkness my dark angel",
-    "In a world full of sunshine, I choose (dig) the moon and the stars. Reflecting the night in my soul",
-    "Staring into the abyss, but instead of staring back, it winked. And I just fell for you.",
-    "I ran out of ideas for now haha",
-    "My silly girl, Jeg holder af dig",
-    "Te quiero, my precious Ida"
+// Story content - customize these arrays with your content
+const storyContent = [
+    { type: 'image', src: 'images/first_pic_togheter.jpg' },
+    { type: 'text', content: "And, this begins with a single moment..." },
+    { type: 'image', src: 'images/first_nightview.jpg' },
+    { type: 'text', content: "You are like that moon illuminating the sky in the pitch dark night :P " },
+    { type: 'image', src: 'images/first_sunrise.jpg' },
+    { type: 'text', content: "One of the 'craziest' night I had as well as a beautiful memory." },
+    { type: 'image', src: 'images/cute_you.jpg' },
+    { type: 'text', content: "one of the best memories, you being so happy to see me, I totally fell for you." },
+    { type: 'image', src: 'images/us.jpg' },
+    { type: 'image', src: 'images/us1.jpg' },
+    { type: 'text', content: "one of the most precious memories, us." },
+    { type: 'image', src: 'images/us_silly_1.jpg' },
+    { type: 'image', src: 'images/we_silly.jpg' },
+    { type: 'text', content: "You are so silly, really, my lovely woman. :)" }
 ];
 
-const images = [
-    "images/darkHK.png", 
-    "images/darkHK1.png",
-    "images/darkHK2.png",
-    "images/darkHK3.png"
-];
+let currentIndex = 0;
+const starter = document.getElementById('starter');
+const story = document.getElementById('story');
+const startButton = document.getElementById('startButton');
+const mediaContainer = document.getElementById('media-container');
+const storyImage = document.getElementById('story-image');
+const storyText = document.getElementById('story-text');
 
-const colors = [
-    "#121212",
-    "#1e1e1e",
-    "#2a2a2a"
-];
+// Show start button after 2 seconds
+setTimeout(() => {
+    startButton.classList.remove('hidden');
+}, 2000);
 
-const audioFiles = [
-    "audio/dies_irae.mp3", // Ensure these are valid audio files
-    "audio/tuba_mirum.mp3"
-];
-
-function getRandomItem(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
-// Set default image and message
-document.getElementById('image').src = getRandomItem(images);
-document.getElementById('message').textContent = "Click the button to reveal a message and change the scene.";
-
-document.getElementById('messageButton').addEventListener('click', () => {
-    const messageElement = document.getElementById('message');
-    const imageElement = document.getElementById('image');
-    const bodyElement = document.body;
-    const audioElement = document.getElementById('backgroundMusic');
-
-    messageElement.textContent = getRandomItem(messages);
-    imageElement.src = getRandomItem(images);
-    bodyElement.style.backgroundColor = getRandomItem(colors);
-    audioElement.src = getRandomItem(audioFiles);
-    audioElement.play(); // Ensure the audio plays
+// Start button event
+startButton.addEventListener('click', () => {
+    starter.classList.remove('active');
+    starter.classList.add('hidden');
+    story.classList.remove('hidden');
+    story.classList.add('active');
+    showNext();
 });
+
+// Media container click event
+mediaContainer.addEventListener('click', showNext);
+
+function showNext() {
+    // Hide both elements
+    storyImage.classList.add('hidden');
+    storyText.classList.add('hidden');
+    
+    if (currentIndex >= storyContent.length) {
+        // End of story - you can add a final message here
+        mediaContainer.innerHTML = `
+            <div style="font-size: 2rem; padding: 20px;">
+                The End ❤️<br>
+                <span style="font-size: 1.5rem;">Thank you for being my kitty</span>
+            </div>
+        `;
+        return;
+    }
+
+    const item = storyContent[currentIndex];
+    
+    if (item.type === 'image') {
+        storyImage.src = item.src;
+        storyImage.classList.remove('hidden');
+    } else {
+        storyText.textContent = item.content;
+        storyText.classList.remove('hidden');
+    }
+    
+    currentIndex++;
+}
