@@ -9,236 +9,332 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    
+
     body {
-      background: linear-gradient(135deg, #ffd6e7, #c1e3ff);
+      font-family: 'Trebuchet MS', sans-serif;
+      background: linear-gradient(135deg, #f5d0ff, #d4a5f9);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      color: #4a2b5d;
+      text-align: center;
+      overflow-x: hidden;
     }
-    
+
     .container {
-      width: 100%;
-      max-width: 800px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-      overflow: hidden;
+      width: 95%;
+      max-width: 900px;
+      padding: 20px;
       position: relative;
     }
-    
+
+    /* Pages */
     .page {
-      padding: 40px;
-      text-align: center;
-      transition: opacity 0.5s ease;
+      width: 100%;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.6s ease;
     }
-    
-    .active {
-      display: block;
+
+    .page.active {
+      opacity: 1;
+      pointer-events: all;
+      position: relative;
     }
-    
+
     .hidden {
-      display: none;
+      opacity: 0 !important;
+      pointer-events: none;
     }
-    
-    h1 {
-      font-size: 2.8rem;
-      color: #ff6b9d;
+
+    /* Starter */
+    #starter h1 {
+      font-size: 3rem;
       margin-bottom: 30px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      color: #fff;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      z-index: 2;
     }
-    
+
+    #startButton {
+      background: #fff;
+      border: none;
+      padding: 15px 50px;
+      font-size: 1.4rem;
+      border-radius: 40px;
+      cursor: pointer;
+      color: #6a0dad;
+      font-weight: bold;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    #startButton:hover {
+      background: #f2e1ff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+
+    /* Media Container */
+    #media-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+    }
+
+    #story-image {
+      max-width: 100%;
+      max-height: 70vh;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      cursor: pointer;
+      margin: 20px 0;
+      object-fit: contain;
+      transition: all 0.5s ease;
+    }
+
+    #story-image.vanish {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+
+    #story-text {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 30px;
+      border-radius: 20px;
+      font-size: 1.4rem;
+      line-height: 1.6;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      cursor: pointer;
+      margin: 20px 0;
+      max-width: 90%;
+      transition: all 0.5s ease;
+    }
+
+    #story-text.vanish {
+      transform: scale(0.98);
+      opacity: 0;
+    }
+
+    /* Ending */
+    .end-text {
+      font-size: 2.8rem;
+      font-weight: bold;
+      color: #555; /* Neutral color */
+      text-shadow: none;
+      padding: 40px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      max-width: 90%;
+      line-height: 1.4;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .end-text p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #777;
+    }
+
+    /* Animations */
     .fade-in {
-      animation: fadeIn 2s ease-in;
+      animation: fadeIn 0.8s ease forwards;
     }
-    
+
+    .pulse {
+      animation: pulse 1.5s infinite;
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
-    #startButton {
-      background: linear-gradient(to right, #ff6b9d, #ff8e53);
-      color: white;
-      border: none;
-      padding: 18px 45px;
-      font-size: 1.4rem;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 107, 157, 0.4);
-      transition: all 0.3s ease;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-    
-    #startButton:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(255, 107, 157, 0.6);
-    }
-    
-    #startButton:active {
-      transform: translateY(0);
-    }
-    
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-    
+
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
     }
-    
-    #media-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-    }
-    
-    #story-image {
-      max-width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      max-height: 400px;
-      object-fit: cover;
-    }
-    
-    #story-text {
-      font-size: 1.4rem;
-      line-height: 1.7;
-      color: #555;
-      max-width: 600px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 15px;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-    }
-    
-    .hearts {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    
-    .heart {
-      position: absolute;
-      font-size: 24px;
-      color: rgba(255, 107, 157, 0.7);
-      animation: float 8s linear infinite;
-    }
-    
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #starter h1 {
+        font-size: 2.2rem;
       }
-      10% {
-        opacity: 1;
+
+      #story-text {
+        font-size: 1.2rem;
+        padding: 20px;
       }
-      90% {
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-    
-    @media (max-width: 600px) {
-      h1 {
+
+      .end-text {
         font-size: 2rem;
+        padding: 30px;
       }
-      
+
+      .end-text p {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #starter h1 {
+        font-size: 1.8rem;
+      }
+
       #startButton {
-        padding: 15px 30px;
+        padding: 12px 40px;
         font-size: 1.2rem;
       }
-      
-      .page {
+
+      #story-text {
+        font-size: 1.1rem;
+        padding: 18px;
+      }
+
+      .end-text {
+        font-size: 1.8rem;
         padding: 25px;
+      }
+
+      .end-text p {
+        font-size: 1.2rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="hearts" id="hearts-container"></div>
-  
   <div class="container">
     <!-- Starter Page -->
     <div id="starter" class="page active">
       <h1 class="fade-in">First Month? Silly us :P</h1>
-      <button id="startButton" class="pulse">Touch Me</button>
+      <button id="startButton" class="hidden pulse">Touch Me babe</button>
     </div>
 
     <!-- Story Page -->
     <div id="story" class="page hidden">
       <div id="media-container">
         <img id="story-image" class="hidden" src="" alt="Story Moment">
-        <div id="story-text" class="hidden">This is where your story would appear. Click the button to start the journey!</div>
+        <div id="story-text" class="hidden"></div>
       </div>
     </div>
   </div>
 
   <script>
-    // Create floating hearts
-    function createHearts() {
-      const container = document.getElementById('hearts-container');
-      const heartCount = 20;
-      
-      for (let i = 0; i < heartCount; i++) {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤';
-        heart.classList.add('heart');
-        
-        // Random position
-        heart.style.left = Math.random() * 100 + 'vw';
-        
-        // Random size
-        const size = Math.random() * 20 + 15;
-        heart.style.fontSize = size + 'px';
-        
-        // Random animation duration
-        const duration = Math.random() * 10 + 5;
-        heart.style.animationDuration = duration + 's';
-        
-        // Random delay
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        
-        container.appendChild(heart);
-      }
-    }
-    
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      createHearts();
-      
-      const startButton = document.getElementById('startButton');
-      const starterPage = document.getElementById('starter');
-      const storyPage = document.getElementById('story');
-      
-      startButton.addEventListener('click', function() {
-        starterPage.classList.remove('active');
-        starterPage.classList.add('hidden');
-        storyPage.classList.remove('hidden');
-        storyPage.classList.add('active');
-        
-        // Show story elements after a delay
-        setTimeout(() => {
-          document.getElementById('story-image').classList.remove('hidden');
-          document.getElementById('story-text').classList.remove('hidden');
-        }, 500);
-      });
+    // Story content
+    const storyContent = [
+      { type: 'image', src: 'images/first_pic_togheter.jpg' },
+      { type: 'text', content: "And, this begins with a single moment..." },
+      { type: 'image', src: 'images/first_nightview.jpg' },
+      { type: 'text', content: "You are like that moon illuminating the sky in the pitch dark night :P" },
+      { type: 'image', src: 'images/first_sunrise.jpg' },
+      { type: 'text', content: "One of the 'craziest' nights I had and a beautiful memory." },
+      { type: 'image', src: 'images/cute_you.jpg' },
+      { type: 'text', content: "Seeing you so happy to see me... I totally fell for you." },
+      { type: 'image', src: 'images/us.jpg' },
+      { type: 'image', src: 'images/us1.jpg' },
+      { type: 'text', content: "One of the most precious memories — us." },
+      { type: 'image', src: 'images/us_silly_1.jpg' },
+      { type: 'image', src: 'images/we_silly.jpg' },
+      { type: 'text', content: "You are so silly, really, my lovely woman. :)" }
+    ];
+
+    let currentIndex = 0;
+    let isTransitioning = false; // Prevent double taps
+
+    const starter = document.getElementById('starter');
+    const story = document.getElementById('story');
+    const startButton = document.getElementById('startButton');
+    const mediaContainer = document.getElementById('media-container');
+    const storyImage = document.getElementById('story-image');
+    const storyText = document.getElementById('story-text');
+
+    // Show start button with delay
+    setTimeout(() => {
+      startButton.classList.remove('hidden');
+    }, 2000);
+
+    // Start button event
+    startButton.addEventListener('click', () => {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      starter.classList.remove('active');
+      setTimeout(() => {
+        starter.classList.add('hidden');
+        story.classList.remove('hidden');
+        story.classList.add('active');
+        showNext();
+      }, 500);
     });
+
+    // Advance on click/tap
+    mediaContainer.addEventListener('click', () => {
+      if (isTransitioning) return;
+      showNext();
+    });
+
+    function showNext() {
+      isTransitioning = true;
+
+      // Add vanish effect
+      storyImage.classList.add('vanish');
+      storyText.classList.add('vanish');
+
+      // Wait for vanish animation
+      setTimeout(() => {
+        storyImage.classList.add('hidden');
+        storyText.classList.add('hidden');
+        storyImage.classList.remove('vanish');
+        storyText.classList.remove('vanish');
+
+        if (currentIndex >= storyContent.length) {
+          mediaContainer.innerHTML = `
+            <div class="end-text">
+              <h2>The End ❤ :P </h2>
+              <p>Thank you for being my kitty</p>
+            </div>
+          `;
+          isTransitioning = false;
+          return;
+        }
+
+        const item = storyContent[currentIndex];
+
+        if (item.type === 'image') {
+          storyImage.src = item.src;
+          storyImage.classList.remove('hidden');
+          setTimeout(() => {
+            storyImage.classList.add('fade-in');
+          }, 50);
+        } else {
+          storyText.textContent = item.content;
+          storyText.classList.remove('hidden');
+          setTimeout(() => {
+            storyText.classList.add('fade-in');
+          }, 50);
+        }
+
+        currentIndex++;
+        isTransitioning = false;
+
+      }, 500); // Match vanish animation duration
+    }
   </script>
 </body>
 </html>
